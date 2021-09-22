@@ -1,33 +1,57 @@
-import pygame
-
-
-class Vector2:
-    def __init__(self, x, y):
+class vec2:
+    def __init__(self, x=0.0, y=0.0):
         self.x = x
         self.y = y
+        self.t = (self.x, self.y)
 
-    def Add(self, other):
-        self.x += other.x
-        self.y += other.y
+    def __add__(self, other):
+        if type(other) == int or type(other) == float:
+            return vec2(self.x + other, self.y + other)
+        else:
+            return vec2(self.x + other.x, self.y + other.y)
 
-    def Sub(self, other):
-        self.x -= other.x
-        self.y -= other.y
+    def __mul__(self, other):
+        if type(other) == int or type(other) == float:
+            return vec2(self.x * other, self.y * other)
+        else:
+            return vec2(self.x * other.x, self.y * other.y)
 
-    def Multiply(self, other):
-        self.x *= other.x
-        self.y *= other.y
+    def __sub__(self, other):
+        if type(other) == int or type(other) == float:
+            return vec2(self.x - other, self.y - other)
+        else:
+            return vec2(self.x - other.x, self.y - other.y)
 
-    def get(self):
-        return (self.x, self.y)
+
+class vec3:
+    def __init__(self, x=0, y=0, z=0):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.t = (self.x, self.y, self.z)
+
+    def __add__(self, other):
+        if type(other) == int or type(other) == float:
+            return vec2(self.x + other, self.y + other, self.z + other)
+        else:
+            return vec2(self.x + other.x, self.y + other.y, self.z + other.z)
+
+    def __mul__(self, other):
+        if type(other) == int or type(other) == float:
+            return vec2(self.x * other, self.y * other, self.z * other)
+        else:
+            return vec2(self.x * other.x, self.y * other.y, self.z * other.z)
+
+    def __sub__(self, other):
+        if type(other) == int or type(other) == float:
+            return vec2(self.x - other, self.y - other, self.z - other)
+        else:
+            return vec2(self.x - other.x, self.y - other.y, self.z - other.z)
 
 
-class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos: Vector2, size):
-        super().__init__()
-        self.image = pygame.Surface((size, size))
-        self.image.fill("black")
-        self.rect = self.image.get_rect(topleft=pos.get())
-
-    def update(self, x_shift):
-        self.rect.x += x_shift
+class SpriteAnimation:
+    def __init__(self, name, fps, anims):
+        self.name = name
+        self.fps = fps
+        self.index = 0
+        self.anims = anims
